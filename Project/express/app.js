@@ -14,11 +14,13 @@ setupSwagger(app); // Настройка Swagger
 
 app.use(express.json());
 
+//получить
 app.get("/api/users", async (req, res) => {
   const users = await prisma.users.findMany();
   res.status(200).json(users);
 });
 
+//регистрация
 app.post("/api/register", async (req, res) => {
   try {
     const { login, password } = req.body;
@@ -37,6 +39,7 @@ app.post("/api/register", async (req, res) => {
   }
 });
 
+//логин
 app.post("/api/login", async (req, res) => {
   const { login, password } = req.body;
   const user = await prisma.users.findUnique({ where: { login: login } });
@@ -51,6 +54,7 @@ app.post("/api/login", async (req, res) => {
   }
 });
 
+//изменение
 app.put("/api/users/:id", async (req, res) => {
   try {
     const userId = parseInt(req.params.id);
@@ -81,6 +85,7 @@ app.put("/api/users/:id", async (req, res) => {
   }
 });
 
+//удалить
 app.delete("/api/users", async (req, res) => {
   try {
     const { id } = req.body; // Предположим, что в запросе передаются name и description
@@ -102,6 +107,7 @@ app.delete("/api/users", async (req, res) => {
   }
 });
 
+//добавить
 app.post("/api/users", async (req, res) => {
   try {
     const { login, password } = req.body; // Предположим, что в запросе передаются name и description
